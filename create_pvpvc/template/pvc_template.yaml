@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rucio-frdf-kafka-data-0
+spec:
+  storageClassName: kafka-storage
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      pvc_name: rucio-frdf-kafka-data-0
+  resources:
+    requests:
+      storage: 50Gi
+

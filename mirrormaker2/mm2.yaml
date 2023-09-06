@@ -1,0 +1,40 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaMirrorMaker2
+metadata:
+  name: rucio-mirrormaker
+spec:
+  version: 3.5.0
+  replicas: 5
+  connectCluster: "target-cluster"
+  clusters:
+  - alias: "source-cluster"
+    bootstrapServers: ccdcamcli20.in2p3.fr:9092
+  - alias: "target-cluster"
+    bootstrapServers: rucio-frdf-kafka-bootstrap:9092
+    config:
+      config.storage.replication.factor: 1
+      offset.storage.replication.factor: 1
+      status.storage.replication.factor: 1
+  mirrors:
+  - sourceCluster: "source-cluster"
+    targetCluster: "target-cluster"
+    sourceConnector:
+      config:
+        replication.factor: 1
+        offset-syncs.topic.replication.factor: 1
+        sync.topic.acls.enabled: "false"
+        replication.policy.separator: ""
+        replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
+    heartbeatConnector:
+      config:
+        heartbeats.topic.replication.factor: 1
+    checkpointConnector:
+      config:
+        checkpoints.topic.replication.factor: 1
+        replication.policy.separator: ""
+        replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
+    topicsPattern: "billingLSST"
+  logging: 
+    type: inline
+    loggers:
+      connect.root.logger.level: "INFO"
