@@ -8,7 +8,7 @@ spec:
   connectCluster: "target-cluster"
   clusters:
   - alias: "source-cluster"
-    bootstrapServers: 134.79.23.222:9094,134.79.23.223:9094,134.79.23.224:9094
+    bootstrapServers: 134.79.23.221:9094
   - alias: "target-cluster"
     bootstrapServers: rucio-frdf-kafka-bootstrap:9092
     config:
@@ -33,7 +33,7 @@ spec:
         checkpoints.topic.replication.factor: 1
         replication.policy.separator: ""
         replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
-    topicsPattern: "BUTLER_FRDF_TEST"
+    topicsPattern: "BUTLER_FRDF_TEST*,DATA_TEST.*,OTHER_TOPIC*,IN2P3_*" 
   logging: 
     type: inline
     loggers:
