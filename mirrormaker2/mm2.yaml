@@ -33,7 +33,7 @@ spec:
         checkpoints.topic.replication.factor: 1
         replication.policy.separator: ""
         replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
-    topicsPattern: "IN2P3_RAW_DISK*,FRDF_STS_DISK*,BUTLER_FRDF_TEST*,DATA_TEST.*,OTHER_TOPIC*,IN2P3_*" 
+    topicsPattern: "BUTLER_FRDF_TEST.*,IN2P3_.*" 
   logging: 
     type: inline
     loggers:
