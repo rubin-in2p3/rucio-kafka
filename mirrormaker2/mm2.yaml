@@ -7,34 +7,34 @@ spec:
   replicas: 5
   connectCluster: "target-cluster"
   clusters:
-  - alias: "source-cluster"
-    bootstrapServers: 134.79.23.221:9094
-  - alias: "target-cluster"
-    bootstrapServers: rucio-frdf-kafka-bootstrap:9092
-    config:
-      config.storage.replication.factor: 1
-      offset.storage.replication.factor: 1
-      status.storage.replication.factor: 1
+    - alias: "source-cluster"
+      bootstrapServers: 134.79.23.189:9094
+    - alias: "target-cluster"
+      bootstrapServers: rucio-frdf-kafka-bootstrap:9092
+      config:
+        config.storage.replication.factor: 1
+        offset.storage.replication.factor: 1
+        status.storage.replication.factor: 1
   mirrors:
-  - sourceCluster: "source-cluster"
-    targetCluster: "target-cluster"
-    sourceConnector:
-      config:
-        replication.factor: 1
-        offset-syncs.topic.replication.factor: 1
-        sync.topic.acls.enabled: "false"
-        replication.policy.separator: ""
-        replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
-    heartbeatConnector:
-      config:
-        heartbeats.topic.replication.factor: 1
-    checkpointConnector:
-      config:
-        checkpoints.topic.replication.factor: 1
-        replication.policy.separator: ""
-        replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
-    topicsPattern: "BUTLER_FRDF_TEST.*,IN2P3_.*" 
-  logging: 
+    - sourceCluster: "source-cluster"
+      targetCluster: "target-cluster"
+      sourceConnector:
+        config:
+          replication.factor: 1
+          offset-syncs.topic.replication.factor: 1
+          sync.topic.acls.enabled: "false"
+          replication.policy.separator: ""
+          replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
+      heartbeatConnector:
+        config:
+          heartbeats.topic.replication.factor: 1
+      checkpointConnector:
+        config:
+          checkpoints.topic.replication.factor: 1
+          replication.policy.separator: ""
+          replication.policy.class: "io.strimzi.kafka.connect.mirror.IdentityReplicationPolicy"
+      topicsPattern: "BUTLER_FRDF_TEST.*,IN2P3_.*"
+  logging:
     type: inline
     loggers:
       connect.root.logger.level: "INFO"
